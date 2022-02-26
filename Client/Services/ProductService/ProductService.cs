@@ -11,6 +11,11 @@
 
         public List<Product> Products { get; set; } = new();
 
+        public Task<Product> GetProductByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task GetProductsAsync()
         {
             var res = await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/Product");
