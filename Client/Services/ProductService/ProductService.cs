@@ -13,7 +13,8 @@
 
         public async Task<ServiceResponse<Product>> GetProductByIdAsync(int id)
         {
-            return await _http.GetFromJsonAsync<ServiceResponse<Product>>($"api/Product/{id}");
+            var res = await _http.GetFromJsonAsync<ServiceResponse<Product>>($"api/Product/{id}");
+            return res;
         }
 
         public async Task GetProductsAsync()
