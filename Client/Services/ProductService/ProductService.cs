@@ -11,9 +11,9 @@
 
         public List<Product> Products { get; set; } = new();
 
-        public Task<Product> GetProductByIdAsync(int id)
+        public async Task<ServiceResponse<Product>> GetProductByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _http.GetFromJsonAsync<ServiceResponse<Product>>($"api/Product/{id}");
         }
 
         public async Task GetProductsAsync()

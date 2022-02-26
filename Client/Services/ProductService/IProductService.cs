@@ -5,6 +5,6 @@
         List<Product> Products { get; set; }
         Task GetProductsAsync();
 
-        Task<Product> GetProductByIdAsync(int id);
+        Task<ServiceResponse<Product>> GetProductByIdAsync(int id);
     }
 }
