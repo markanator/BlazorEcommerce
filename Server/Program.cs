@@ -1,8 +1,16 @@
 global using BlazorEcommerce.Shared;
+using BlazorEcommerce.Server.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                                                        options.UseNpgsql(
+                                                            builder.Configuration.GetConnectionString("DefaultConnection"),
+                                                                // enable splitting of queries to improve perf, & prevent redundant data fetching
+                                                                o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
