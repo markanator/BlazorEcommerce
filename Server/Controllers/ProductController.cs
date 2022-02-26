@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -9,31 +8,17 @@ namespace BlazorEcommerce.Server.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly ApplicationDbContext _contextService;
+        private readonly IProductService _productService;
 
-        public ProductController(ApplicationDbContext context)
+        public ProductController(IProductService product)
         {
-            _contextService = context;
+            _productService = product;
         }
 
         [HttpGet]
-        public async Task<ActionResult<ServiceResponse<List<Product>>>> GetAllProducts()
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> GetProducts()
         {
-            var res = new ServiceResponse<List<Product>>();
-            try
-            {
-                var products = await _contextService.Products.ToListAsync();
-
-                res.Data = products;
-                res.Success = products.Any();
-
-                return Ok(res);
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+            return await _productService.GetProductsAsync();
         }
     }
 }
