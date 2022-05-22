@@ -46,5 +46,21 @@ namespace BlazorEcommerce.Server.Services.ProductService
 
             return res;
         }
+
+        public async Task<ServiceResponse<List<Product>>> GetProductsByCategoryAsync(string categoryUrl)
+        {
+            var res = new ServiceResponse<List<Product>>();
+            try
+            {
+                res.Data = await _contextService.Products.Include(p => p.Category).Where(p => p.Category.Url.ToLower() == categoryUrl.ToLower()).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                res.Success = false;
+                res.Message = ex.Message;
+            }
+
+            return res;
+        }
     }
 }

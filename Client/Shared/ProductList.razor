@@ -1,4 +1,5 @@
 ﻿@inject IProductService ProductService
+@implements IDisposable
 
 @if (ProductService.Products == null || ProductService.Products.Count == 0) {
     <span>Loading....</span>
@@ -32,6 +33,12 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        await ProductService.GetProductsAsync();
+        // when this event is invoked, rerender
+        ProductService.ProductsChanged += StateHasChanged;
+    }
+
+    public void Dispose ()
+    {
+        ProductService.ProductsChanged -= StateHasChanged;
     }
 }
