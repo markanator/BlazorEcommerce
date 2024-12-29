@@ -10,7 +10,7 @@
 
 @code {
     [Parameter]
-    public string CategoryUrl { get; set; }
+    public string CategoryUrl { get; set; } = String.Empty;
 
     protected override async Task OnParametersSetAsync()
     {
